@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>High Level Experience 2026 — Estratégia do Evento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:       #080808;
+  --near-black:  #0f0f0f;
+  --card:        #141414;
+  --card2:       #191919;
+  --border:      #222222;
+  --border-soft: #1c1c1c;
+
+  /* Brand palette — respeitando a identidade Renata Madeu */
+  --wine:        #6b1a2a;
+  --wine-mid:    #8c2438;
+  --wine-light:  #b03050;
+  --wine-pale:   #d4607a;
+  --wine-glow:   rgba(107,26,42,0.18);
+
+  --gold:        #c9a96e;
+  --gold-light:  #e0c48a;
+  --gold-pale:   #f2e0c0;
+
+  --cream:       #f4ede0;
+  --white:       #f7f2ec;
+  --muted:       #7a756e;
+  --muted2:      #555048;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* GRAIN */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: 1;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 3.5rem;
+  background: rgba(8,8,8,0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(107,26,42,0.25);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem; font-weight: 600;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--wine-pale);
+}
+.nav-links { display: flex; gap: 2.2rem; list-style: none; }
+.nav-links a {
+  font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--wine-pale); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding: 9rem 2rem 6rem;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 55%, rgba(107,26,42,0.13) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 35% at 80% 20%, rgba(201,169,110,0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 15% 80%, rgba(107,26,42,0.07) 0%, transparent 60%);
+}
+/* Diagonal accent line */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 15%;
+  width: 1px; height: 100%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(107,26,42,0.18) 40%, rgba(201,169,110,0.1) 70%, transparent 100%);
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.75rem;
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.35em;
+  text-transform: uppercase; color: var(--gold);
+  border: 1px solid rgba(201,169,110,0.2);
+  padding: 0.5rem 1.2rem; margin-bottom: 2.5rem;
+  opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
+}
+.badge-dot { width: 5px; height: 5px; background: var(--wine-pale); border-radius: 50%; }
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(4.5rem, 11vw, 10rem);
+  font-weight: 300; line-height: 0.88;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.8rem;
+  opacity: 0; animation: fadeUp 1s ease 0.4s forwards;
+}
+.hero-title em { font-style: italic; color: var(--wine-pale); }
+
+.hero-location {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.4rem, 3vw, 2.8rem);
+  font-weight: 300; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 3rem;
+  opacity: 0; animation: fadeUp 1s ease 0.6s forwards;
+}
+
+.hero-rule {
+  display: flex; align-items: center; gap: 1.5rem;
+  margin: 0 auto 2.5rem; max-width: 500px;
+  opacity: 0; animation: fadeUp 1s ease 0.8s forwards;
+}
+.hero-rule-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--wine-mid)); }
+.hero-rule-line.right { background: linear-gradient(to left, transparent, var(--wine-mid)); }
+.hero-rule-diamond {
+  width: 8px; height: 8px;
+  background: var(--gold); transform: rotate(45deg);
+}
+
+.hero-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem, 2.8vw, 2rem);
+  font-style: italic; font-weight: 300;
+  color: var(--cream); line-height: 1.45; max-width: 680px;
+  opacity: 0; animation: fadeUp 1s ease 1s forwards;
+}
+
+.hero-pillars {
+  display: flex; gap: 2.5rem; margin-top: 3.5rem;
+  opacity: 0; animation: fadeUp 1s ease 1.2s forwards;
+}
+.hero-pill {
+  font-size: 0.6rem; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.hero-pill::before { content: ''; width: 18px; height: 1px; background: var(--wine-mid); }
+
+.hero-scroll {
+  position: absolute; bottom: 2rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  opacity: 0; animation: fadeIn 1s ease 2s forwards;
+}
+.scroll-label { font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted2); }
+.scroll-bar { width: 1px; height: 44px; background: linear-gradient(to bottom, var(--wine-mid), transparent); animation: pulse 2s ease-in-out infinite; }
+
+/* ─── SHARED ─── */
+section { position: relative; z-index: 1; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 6.5rem 3.5rem; }
+
+.tag {
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.38em;
+  text-transform: uppercase; color: var(--wine-pale);
+  display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1rem;
+}
+.tag::after { content: ''; width: 50px; height: 1px; background: var(--wine-mid); opacity: 0.5; }
+
+h2.stitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  font-weight: 300; line-height: 1.05; margin-bottom: 1.2rem;
+}
+h2.stitle em { font-style: italic; color: var(--wine-pale); }
+
+.intro {
+  font-size: 1rem; color: rgba(244,237,224,0.6);
+  max-width: 660px; line-height: 1.85; margin-bottom: 4rem;
+}
+
+/* Reveal */
+.r { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
+.r.on { opacity: 1; transform: none; }
+.rd1 { transition-delay: 0.08s; }
+.rd2 { transition-delay: 0.16s; }
+.rd3 { transition-delay: 0.24s; }
+.rd4 { transition-delay: 0.32s; }
+.rd5 { transition-delay: 0.4s; }
+
+/* ─── ALERTA ESTRATÉGICO ─── */
+.alert-section { background: var(--wine); }
+.alert-inner {
+  max-width: 1180px; margin: 0 auto;
+  padding: 3rem 3.5rem;
+  display: flex; align-items: center; gap: 3rem;
+}
+.alert-icon {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4rem; font-weight: 300;
+  color: rgba(244,237,224,0.25); line-height: 1; flex-shrink: 0;
+}
+.alert-text strong {
+  display: block; font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(244,237,224,0.7); margin-bottom: 0.5rem;
+}
+.alert-text p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem; font-style: italic; font-weight: 300;
+  color: var(--cream); line-height: 1.5;
+}
+
+/* ─── CONCEITO ─── */
+.conceito-section { background: var(--near-black); border-top: 1px solid var(--border); }
+
+.conceito-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin: 3rem 0; }
+.cg-item { background: var(--card); padding: 2.5rem; transition: background 0.3s; }
+.cg-item:hover { background: var(--card2); }
+.cg-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--wine-pale); margin-bottom: 0.8rem; }
+.cg-text { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 300; line-height: 1.6; color: rgba(244,237,224,0.8); }
+.cg-text strong { color: var(--cream); font-weight: 400; }
+
+.tese-block {
+  border-left: 2px solid var(--wine-mid);
+  padding: 2rem 2.8rem;
+  background: rgba(107,26,42,0.07);
+  margin: 3rem 0;
+}
+.tese-block p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+  font-style: italic; font-weight: 300;
+  color: var(--cream); line-height: 1.5;
+}
+
+/* ─── METODOLOGIA PILLARS ─── */
+.metodologia-section { background: var(--black); }
+
+.metod-center {
+  text-align: center; margin-bottom: 4rem;
+}
+.metod-center .sub {
+  font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--muted); margin-top: 0.6rem;
+}
+
+.pilares-wrapper {
+  position: relative;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5px;
+  background: var(--border);
+}
+
+/* Central model overlay badge */
+.modelo-label {
+  position: absolute;
+  top: -1.8rem; left: 50%; transform: translateX(-50%);
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--gold);
+  background: var(--black); padding: 0 1rem;
+  white-space: nowrap;
+}
+
+.pilar {
+  background: var(--card);
+  padding: 2.8rem 2rem;
+  text-align: center;
+  position: relative; overflow: hidden;
+  transition: background 0.3s, transform 0.3s;
+}
+.pilar:hover { background: var(--card2); transform: translateY(-3px); }
+.pilar::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(to right, var(--wine), var(--wine-pale), var(--wine));
+  transform: scaleX(0); transition: transform 0.4s;
+}
+.pilar:hover::before { transform: scaleX(1); }
+.pilar-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem; font-weight: 300;
+  color: rgba(107,26,42,0.2); line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.pilar-name {
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--wine-pale); margin-bottom: 0.8rem;
+}
+.pilar-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 400;
+  margin-bottom: 0.8rem; line-height: 1.2;
+}
+.pilar-sub { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+
+.mentalidade-bar {
+  margin-top: 1.5px;
+  background: linear-gradient(to right, var(--wine), #3d0f18, var(--wine));
+  padding: 1.5rem 2rem;
+  text-align: center;
+  display: flex; align-items: center; justify-content: center; gap: 2rem;
+}
+.mentalidade-bar span {
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(244,237,224,0.85);
+}
+.mentalidade-bar::before, .mentalidade-bar::after {
+  content: '◇'; color: rgba(244,237,224,0.3); font-size: 0.7rem;
+}
+
+/* ─── ICP ─── */
+.icp-section { background: var(--near-black); border-top: 1px solid var(--border); }
+
+.icp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-top: 3rem; }
+
+.icp-card {
+  background: var(--card); padding: 2.2rem 1.8rem;
+  position: relative; transition: background 0.3s;
+}
+.icp-card:hover { background: var(--card2); }
+.icp-card.primary {
+  background: linear-gradient(135deg, rgba(107,26,42,0.22), rgba(107,26,42,0.08));
+  border: 1px solid rgba(107,26,42,0.3);
+}
+.primary-badge {
+  position: absolute; top: 1rem; right: 1rem;
+  font-size: 0.52rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--wine-pale); background: rgba(107,26,42,0.3);
+  padding: 0.2rem 0.6rem; border: 1px solid rgba(107,26,42,0.4);
+}
+.icp-n {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.8rem; font-weight: 300;
+  color: rgba(107,26,42,0.18); position: absolute;
+  top: 0.8rem; right: 1rem; line-height: 1;
+}
+.icp-card.primary .icp-n { color: rgba(107,26,42,0.35); }
+.icp-tag { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--wine-pale); margin-bottom: 0.7rem; }
+.icp-name { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 400; margin-bottom: 0.8rem; line-height: 1.25; }
+.icp-desc { font-size: 0.83rem; color: rgba(244,237,224,0.55); line-height: 1.7; margin-bottom: 0.8rem; }
+.icp-dor { font-size: 0.75rem; color: var(--wine-pale); font-style: italic; padding-top: 0.7rem; border-top: 1px solid rgba(107,26,42,0.2); }
+
+/* ─── PROMESSA ─── */
+.promessa-section { background: var(--black); }
+
+.promessa-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+
+.pcard {
+  border: 1px solid var(--border); padding: 2.5rem;
+  position: relative; overflow: hidden;
+  transition: border-color 0.3s;
+}
+.pcard::before {
+  content: '';
+  position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+  background: linear-gradient(to right, var(--wine-mid), var(--wine-pale), transparent);
+  transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+}
+.pcard:hover::before { transform: scaleX(1); }
+.pcard:hover { border-color: rgba(107,26,42,0.35); }
+.pcard-n {
+  font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300;
+  color: rgba(107,26,42,0.12); line-height: 1; margin-bottom: 0.3rem;
+}
+.pcard-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--wine-pale); margin-bottom: 0.9rem; }
+.pcard-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem; font-style: italic; font-weight: 300;
+  color: var(--cream); line-height: 1.55;
+}
+
+.headline-hero {
+  margin-top: 4rem;
+  padding: 3.5rem; text-align: center;
+  background: var(--card);
+  border: 1px solid rgba(107,26,42,0.2);
+  position: relative;
+}
+.headline-hero::before, .headline-hero::after {
+  content: ''; position: absolute;
+  width: 22px; height: 22px;
+  border-color: var(--wine-mid); border-style: solid; opacity: 0.35;
+}
+.headline-hero::before { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
+.headline-hero::after  { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
+.hl-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300;
+  margin-bottom: 1rem; line-height: 1.1;
+}
+.hl-main em { font-style: italic; color: var(--wine-pale); }
+.hl-sub { color: rgba(244,237,224,0.55); font-size: 0.95rem; max-width: 580px; margin: 0 auto; line-height: 1.8; }
+
+/* ─── DORES ─── */
+.dores-section { background: var(--near-black); border-top: 1px solid var(--border); }
+.dores-list { margin-top: 3rem; }
+.dor-row {
+  display: flex; gap: 2rem; align-items: flex-start;
+  padding: 1.6rem 0; border-bottom: 1px solid var(--border-soft);
+  transition: padding-left 0.3s, background 0.25s;
+  border-radius: 2px;
+}
+.dor-row:hover { padding-left: 0.75rem; background: rgba(107,26,42,0.04); }
+.dor-n { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: rgba(107,26,42,0.35); min-width: 2.2rem; line-height: 1.2; }
+.dor-q { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; font-weight: 300; color: rgba(244,237,224,0.78); line-height: 1.5; padding-top: 0.15rem; }
+
+/* ─── PROGRAMA ─── */
+.programa-section { background: var(--black); }
+
+.dias-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 3rem; }
+
+.dia {
+  border: 1px solid var(--border); overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.dia-head {
+  padding: 2rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(107,26,42,0.15) 0%, rgba(107,26,42,0.04) 100%);
+}
+.dia-eyebrow { font-size: 0.58rem; letter-spacing: 0.38em; text-transform: uppercase; color: var(--wine-pale); font-weight: 700; margin-bottom: 0.3rem; }
+.dia-title { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; line-height: 1.1; }
+.dia-subtitle { font-size: 0.78rem; color: var(--muted); font-style: italic; margin-top: 0.3rem; }
+
+.sched-item {
+  display: flex; border-bottom: 1px solid rgba(34,34,34,0.8);
+  transition: background 0.2s;
+}
+.sched-item:hover { background: rgba(107,26,42,0.05); }
+.sched-time {
+  width: 80px; min-width: 80px; padding: 1rem;
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
+  color: var(--wine-pale); border-right: 1px solid var(--border);
+  display: flex; align-items: center;
+}
+.sched-body { padding: 1rem 1.4rem; font-size: 0.82rem; color: rgba(244,237,224,0.68); line-height: 1.5; }
+.sched-body strong { display: block; color: var(--cream); font-weight: 500; font-size: 0.88rem; margin-bottom: 0.15rem; }
+.sched-chip {
+  display: inline-block; margin-top: 0.35rem;
+  font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--wine-pale); border: 1px solid rgba(107,26,42,0.3); padding: 0.1rem 0.5rem;
+}
+
+/* ─── PALESTRANTES ─── */
+.speakers-section { background: var(--near-black); border-top: 1px solid var(--border); }
+.speaker-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-top: 3rem; }
+.speaker-card { background: var(--card); padding: 2rem; display: flex; gap: 1.5rem; align-items: flex-start; transition: background 0.25s; }
+.speaker-card:hover { background: var(--card2); }
+.sp-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: rgba(107,26,42,0.2); min-width: 2rem; line-height: 1; }
+.sp-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; color: rgba(244,237,224,0.85); line-height: 1.45; }
+
+/* ─── IA SECTION ─── */
+.ia-section { background: var(--black); }
+.ia-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem; }
+.ia-col-title { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--wine-pale); padding-bottom: 0.8rem; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+.ia-item { display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.88rem; color: rgba(244,237,224,0.65); line-height: 1.7; align-items: flex-start; padding-left: 0.2rem; }
+.ia-item.strike { text-decoration: line-through; color: rgba(244,237,224,0.3); }
+
+/* ─── EXPERIÊNCIA ─── */
+.exp-section { background: var(--near-black); border-top: 1px solid var(--border); }
+.feel-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); margin-top: 3rem; }
+.feel-card { background: var(--card); padding: 2.5rem 2rem; text-align: center; }
+.feel-moment { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--wine-pale); margin-bottom: 0.9rem; }
+.feel-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-style: italic; font-weight: 300; color: var(--cream); line-height: 1.55; }
+
+.identity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 4rem; }
+.id-group-h { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--wine-pale); padding-bottom: 0.7rem; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+.id-i { display: flex; gap: 1rem; margin-bottom: 0.9rem; font-size: 0.88rem; color: rgba(244,237,224,0.6); line-height: 1.65; }
+
+/* PALETA */
+.paleta-wrap { margin-top: 3.5rem; }
+.paleta-swatches { display: flex; height: 72px; border: 1px solid var(--border); overflow: hidden; margin-top: 0.8rem; }
+.sw { flex: 1; display: flex; align-items: flex-end; padding: 0.5rem 0.7rem; }
+.sw-l { font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; color: rgba(255,255,255,0.5); }
+
+/* ─── DIFERENCIAIS ─── */
+.dif-section { background: var(--black); }
+.dif-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+.dif-card { padding: 2.5rem; border: 1px solid var(--border); position: relative; overflow: hidden; transition: border-color 0.3s; }
+.dif-card:hover { border-color: rgba(107,26,42,0.3); }
+.dif-accent { position: absolute; top: 0; left: 0; width: 2px; height: 100%; background: linear-gradient(to bottom, var(--wine-mid), transparent); }
+.dif-title { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 400; margin-bottom: 0.9rem; padding-left: 1.5rem; }
+.dif-text { font-size: 0.85rem; color: rgba(244,237,224,0.55); line-height: 1.8; padding-left: 1.5rem; }
+
+/* ─── JORNADA ─── */
+.jornada-section { background: var(--near-black); border-top: 1px solid var(--border); }
+.jornada-flow { margin-top: 3rem; position: relative; }
+.jornada-flow::before { content: ''; position: absolute; left: 28px; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--wine-mid), rgba(107,26,42,0.1)); }
+.j-step { display: flex; gap: 2.5rem; margin-bottom: 2.5rem; position: relative; }
+.j-dot { width: 57px; min-width: 57px; display: flex; justify-content: center; padding-top: 0.25rem; }
+.j-dot-inner { width: 11px; height: 11px; background: var(--wine-mid); border: 2px solid var(--wine-pale); border-radius: 50%; position: relative; z-index: 1; }
+.j-content { flex: 1; padding-bottom: 0.5rem; }
+.j-phase { font-size: 0.57rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--wine-pale); margin-bottom: 0.4rem; }
+.j-title { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 400; margin-bottom: 0.75rem; }
+.j-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.j-tag { font-size: 0.68rem; padding: 0.25rem 0.8rem; border: 1px solid var(--border); color: rgba(244,237,224,0.55); background: rgba(20,20,20,0.6); }
+
+/* ─── LOGÍSTICA ─── */
+.log-section { background: var(--black); }
+.log-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+.log-card { border: 1px solid var(--border); padding: 2rem; }
+.log-title { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--wine-pale); margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
+.log-item { font-size: 0.83rem; color: rgba(244,237,224,0.6); line-height: 1.7; padding: 0.4rem 0; border-bottom: 1px solid rgba(34,34,34,0.5); }
+
+/* ─── SÍNTESE ─── */
+.sintese-section { background: var(--near-black); border-top: 1px solid var(--border); text-align: center; }
+.sint-line { width: 1px; height: 64px; background: linear-gradient(to bottom, var(--wine-mid), transparent); margin: 0 auto 2.5rem; }
+.sint-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.5rem, 2.8vw, 2.6rem); font-style: italic; font-weight: 300; line-height: 1.45; max-width: 800px; margin: 0 auto 2rem; color: var(--cream); }
+.sint-author { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--wine-pale); }
+
+.final-row {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem;
+  margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--border);
+  text-align: left;
+}
+.fr-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--wine-pale); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.7rem; }
+.fr-label::after { content: ''; width: 30px; height: 1px; background: var(--wine-mid); opacity: 0.4; }
+.fr-val { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; }
+
+/* ─── PITCH STRATEGY ─── */
+.pitch-section { background: var(--black); }
+
+.pitch-timeline {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px;
+  background: var(--border); margin-top: 3rem;
+}
+.pitch-card {
+  background: var(--card); padding: 2.5rem 2rem;
+  position: relative; overflow: hidden;
+  transition: background 0.3s;
+}
+.pitch-card:hover { background: var(--card2); }
+.pitch-card.highlight {
+  background: linear-gradient(145deg, rgba(107,26,42,0.2), rgba(107,26,42,0.06));
+  border-left: 2px solid var(--wine-mid);
+}
+.pitch-type {
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.35em;
+  text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.pitch-type.pre  { color: var(--gold-light); }
+.pitch-type.main { color: var(--wine-pale); }
+.pitch-type.re   { color: var(--gold); }
+.pitch-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem; font-weight: 300; line-height: 1.1;
+  margin-bottom: 1.2rem;
+}
+.pitch-when {
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--muted);
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--border);
+  display: inline-block; margin-bottom: 1.2rem;
+}
+.pitch-desc { font-size: 0.85rem; color: rgba(244,237,224,0.58); line-height: 1.75; margin-bottom: 1.2rem; }
+.pitch-items { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 1rem; }
+.pitch-item {
+  font-size: 0.8rem; color: rgba(244,237,224,0.55);
+  padding: 0.6rem 0.9rem;
+  background: rgba(255,255,255,0.03);
+  border-left: 2px solid rgba(107,26,42,0.3);
+  line-height: 1.5;
+}
+.pitch-item strong { color: var(--cream); font-weight: 500; display: block; font-size: 0.82rem; margin-bottom: 0.15rem; }
+.pitch-number {
+  position: absolute; top: 1rem; right: 1.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 5rem; font-weight: 300; line-height: 1;
+  color: rgba(107,26,42,0.1);
+}
+
+.pitch-flow {
+  margin-top: 3rem;
+  padding: 2.5rem; background: var(--card);
+  border: 1px solid rgba(107,26,42,0.15);
+}
+.pitch-flow-title {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--wine-pale);
+  margin-bottom: 2rem; padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--border);
+}
+.pitch-flow-steps {
+  display: flex; align-items: center; gap: 0; overflow-x: auto;
+}
+.pf-step {
+  flex: 1; min-width: 140px; text-align: center; padding: 0 1rem;
+  position: relative;
+}
+.pf-step:not(:last-child)::after {
+  content: '';
+  position: absolute; top: 1.2rem; right: -1px;
+  width: 2px; height: 24px;
+  background: linear-gradient(to bottom, var(--wine-mid), transparent);
+}
+.pf-dot {
+  width: 24px; height: 24px;
+  border-radius: 50%; margin: 0 auto 0.8rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.55rem; font-weight: 700; color: var(--black);
+}
+.pf-dot.pre-c  { background: var(--gold-light); }
+.pf-dot.main-c { background: var(--wine-pale); }
+.pf-dot.re-c   { background: var(--gold); }
+.pf-event { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+.pf-action { font-size: 0.78rem; color: rgba(244,237,224,0.7); line-height: 1.45; }
+
+/* Chip de pitch no schedule */
+.sched-chip.pitch-chip {
+  background: rgba(107,26,42,0.25);
+  color: var(--wine-pale);
+  border-color: rgba(107,26,42,0.5);
+  font-weight: 700;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 3.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--black);
+}
+.f-logo { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--wine-pale); font-weight: 600; }
+.f-credit { font-size: 0.6rem; letter-spacing: 0.15em; color: var(--muted2); text-transform: uppercase; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:none; } }
+@keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
+@keyframes pulse   { 0%,100% { opacity:1; } 50% { opacity:0.35; } }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 920px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .wrap { padding: 5rem 1.5rem; }
+  .conceito-grid, .icp-grid, .promessa-cards, .dias-grid, .speaker-grid,
+  .ia-grid, .feel-grid, .identity-grid, .dif-grid, .log-grid, .final-row,
+  .pilares-wrapper { grid-template-columns: 1fr; }
+  .alert-inner { flex-direction: column; gap: 1rem; }
+  .hero-pillars { flex-direction: column; align-items: center; gap: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">HLE — São Paulo 2026</div>
+  <ul class="nav-links">
+    <li><a href="#conceito">Conceito</a></li>
+    <li><a href="#metodologia">Metodologia</a></li>
+    <li><a href="#publico">Público</a></li>
+    <li><a href="#promessa">Promessa</a></li>
+    <li><a href="#programa">Programa</a></li>
+    <li><a href="#pitch">Pitch Strategy</a></li>
+    <li><a href="#experiencia">Experiência</a></li>
+    <li><a href="#logistica">Logística</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    Estratégia Completa — Atualizada pós-reunião
+    <span class="badge-dot"></span>
+  </div>
+
+  <h1 class="hero-title">High <em>Level</em><br>Experience</h1>
+  <p class="hero-location">São Paulo · 2026</p>
+
+  <div class="hero-rule">
+    <div class="hero-rule-line"></div>
+    <div class="hero-rule-diamond"></div>
+    <div class="hero-rule-line right"></div>
+  </div>
+
+  <p class="hero-headline">
+    "Dois dias para transformar seu conhecimento em algo que vende —<br>
+    com método, IA como suporte e as pessoas certas ao lado."
+  </p>
+
+  <div class="hero-pillars">
+    <div class="hero-pill">Conteúdo QGV</div>
+    <div class="hero-pill">Vendas High Level</div>
+    <div class="hero-pill">Rotina High Level</div>
+  </div>
+
+  <div class="hero-scroll">
+    <span class="scroll-label">Explorar</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- ALERTA ESTRATÉGICO -->
+<div class="alert-section">
+  <div class="alert-inner">
+    <div class="alert-icon">!</div>
+    <div class="alert-text">
+      <strong>Ajuste central — saído da reunião de briefing</strong>
+      <p>"Escala" sai como conceito central. <strong>Vendas entra como tema-âncora:</strong> produto que vende, conteúdo que vende, posicionamento que gera venda.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CONCEITO -->
+<section class="conceito-section" id="conceito">
+  <div class="wrap">
+    <div class="tag r">01 — Conceito Central</div>
+    <h2 class="stitle r">A tese que guia<br>cada <em>decisão</em></h2>
+    <p class="intro r">O evento parte do princípio de que a participante já tem lastro — ela é boa no que faz. O gargalo não é competência: é saber transformar isso em algo vendável com consistência.</p>
+
+    <div class="tese-block r">
+      <p>"Profissionais com lastro não precisam aprender mais sobre o que fazem. Precisam aprender a vender o que sabem — com posicionamento preciso, conteúdo que converte e um modelo de negócio que sustente sua vida."</p>
+    </div>
+
+    <div class="conceito-grid r">
+      <div class="cg-item">
+        <div class="cg-label">O problema real</div>
+        <p class="cg-text">Ela é <strong>excelente no serviço</strong>, mas trava na venda. Não por falta de produto — por falta de método e de um posicionamento digital que reflita seu valor real.</p>
+      </div>
+      <div class="cg-item">
+        <div class="cg-label">O que o evento entrega</div>
+        <p class="cg-text"><strong>Clareza operacional</strong> sobre produto, conteúdo e posicionamento. Ferramentas práticas para vender com consistência. IA como suporte — não como mágica.</p>
+      </div>
+      <div class="cg-item">
+        <div class="cg-label">O que NÃO é esse evento</div>
+        <p class="cg-text">Não promete escala irreal. Não vende <strong>"rotina fake"</strong> (acordar tarde, trabalhar pouco). Não apresenta IA como substituta de equipe ou solução para tudo.</p>
+      </div>
+      <div class="cg-item">
+        <div class="cg-label">A virada de chave</div>
+        <p class="cg-text">De <strong>profissional que entrega</strong> → para especialista que <strong>posiciona, vende e ensina</strong> o que sabe, com modelo de negócio estruturado por trás.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METODOLOGIA -->
+<section class="metodologia-section" id="metodologia">
+  <div class="wrap">
+    <div class="tag r">02 — Metodologia High Level</div>
+    <h2 class="stitle r">Os 3 pilares do<br><em>Modelo de Negócio</em> High Level</h2>
+    <p class="intro r">A nova estrutura metodológica do evento — tudo atravessado por Mentalidade e Perfil Comportamental.</p>
+
+    <div style="position:relative; padding-top:2.5rem;" class="r">
+      <div class="modelo-label">MODELO DE NEGÓCIO HIGH LEVEL</div>
+      <div class="pilares-wrapper">
+        <div class="pilar">
+          <div class="pilar-num">01</div>
+          <div class="pilar-name">Pilar 01</div>
+          <div class="pilar-title">Conteúdo QGV</div>
+          <p class="pilar-sub">Conteúdo que Qualifica, Gera autoridade e Vende. Produção estratégica, não volume. Com IA como acelerador de criação.</p>
+        </div>
+        <div class="pilar">
+          <div class="pilar-num">02</div>
+          <div class="pilar-name">Pilar 02</div>
+          <div class="pilar-title">Vendas High Level</div>
+          <p class="pilar-sub">O método de vendas consultivas para ticket alto. Produto vendável, processo de conversão com elegância, sem pressão e sem roteiro artificial.</p>
+        </div>
+        <div class="pilar">
+          <div class="pilar-num">03</div>
+          <div class="pilar-name">Pilar 03</div>
+          <div class="pilar-title">Rotina High Level</div>
+          <p class="pilar-sub">A operação que sustenta tudo. Processos, delegação e IA para que a profissional pare de fazer tudo e comece a dirigir o negócio.</p>
+        </div>
+      </div>
+      <div class="mentalidade-bar">
+        <span>Mentalidade &amp; Perfil Comportamental</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PÚBLICO / ICP -->
+<section class="icp-section" id="publico">
+  <div class="wrap">
+    <div class="tag r">03 — Público Ideal (ICP)</div>
+    <h2 class="stitle r">"Profissionais com <em>lastro"</em></h2>
+    <p class="intro r">Boas no que fazem offline, mas ainda travadas na venda e na presença digital. O perfil primário é a Prestadora de Serviços Premium que atingiu o teto do modelo hora/dinheiro.</p>
+
+    <div class="icp-grid r">
+      <div class="icp-card primary">
+        <div class="primary-badge">Perfil Principal</div>
+        <span class="icp-n">1</span>
+        <div class="icp-tag">Perfil 01</div>
+        <p class="icp-name">A Prestadora de<br>Serviços Premium</p>
+        <p class="icp-desc">Tem reputação, tem clientes, mas o modelo "horas por dinheiro" chegou no teto. Quer criar um braço educacional ou mentoria sem perder o padrão do serviço.</p>
+        <p class="icp-dor">Dor: "Não sei como sair de horas por dinheiro sem parecer que estou abandonando meu serviço."</p>
+      </div>
+
+      <div class="icp-card">
+        <span class="icp-n">2</span>
+        <div class="icp-tag">Perfil 02</div>
+        <p class="icp-name">A Profissional em<br>Transição de Carreira</p>
+        <p class="icp-desc">Especialista no offline (médica, advogada, contadora, designer sênior) que quer estruturar presença digital e transformar experiência em produto digital.</p>
+        <p class="icp-dor">Dor: "Tenho muito conhecimento, mas não sei como empacotar e vender no digital."</p>
+      </div>
+
+      <div class="icp-card">
+        <span class="icp-n">3</span>
+        <div class="icp-tag">Perfil 03</div>
+        <p class="icp-name">A Mentora &amp;<br>Especialista em Crescimento</p>
+        <p class="icp-desc">Já vende mentoria mas quer refinar o posicionamento, cobrar mais e ter um processo de vendas que não dependa da sua energia diária.</p>
+        <p class="icp-dor">Dor: "Minha venda é inconsistente e depende de quanto estou animada naquele mês."</p>
+      </div>
+
+      <div class="icp-card">
+        <span class="icp-n">4</span>
+        <div class="icp-tag">Perfil 04</div>
+        <p class="icp-name">A Empresária<br>Consolidada</p>
+        <p class="icp-desc">Já fatura, já tem equipe ou quer ter. Cresceu mas sente que a estrutura não acompanhou — e está travada no operacional sem espaço para o estratégico.</p>
+        <p class="icp-dor">Dor: "Estou trabalhando mais e crescendo menos — algo na operação está errado."</p>
+      </div>
+
+      <div class="icp-card">
+        <span class="icp-n">5</span>
+        <div class="icp-tag">Perfil 05</div>
+        <p class="icp-name">A Criadora com<br>Visão de Negócio</p>
+        <p class="icp-desc">Tem audiência e influência, quer transformar isso em receita consistente. Já entende que só conteúdo não basta — precisa de estrutura por trás.</p>
+        <p class="icp-dor">Dor: "Tenho público, mas não sei transformar isso em renda estável."</p>
+      </div>
+
+      <div class="icp-card" style="background:rgba(107,26,42,0.05); border:1px solid rgba(107,26,42,0.15);">
+        <div class="icp-tag" style="margin-bottom:1.2rem">Quem NÃO é o público</div>
+        <p class="icp-desc" style="color:rgba(244,237,224,0.45); font-style:italic;">
+          ✗ Aspirante a mentor sem nenhum resultado ou lastro<br><br>
+          ✗ Quem quer aprender o básico do digital do zero<br><br>
+          ✗ Quem busca promessas de faturamento fácil ou "rotina fake"<br><br>
+          ✗ Iniciante sem produto ou serviço estruturado
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMESSA -->
+<section class="promessa-section" id="promessa">
+  <div class="wrap">
+    <div class="tag r">04 — Promessa & Posicionamento</div>
+    <h2 class="stitle r">Promessas com<br><em>profundidade real</em></h2>
+    <p class="intro r">Sem "escala" como promessa central. O foco é em <strong>vender com consistência</strong> — produto vendável, conteúdo que converte, posicionamento que gera venda.</p>
+
+    <div class="promessa-cards r">
+      <div class="pcard">
+        <div class="pcard-n">01</div>
+        <div class="pcard-label">Versão Principal — Vendas</div>
+        <p class="pcard-text">"Em 2 dias: transforme seu conhecimento em algo que vende — com produto claro, conteúdo estratégico e posicionamento que atrai o cliente certo."</p>
+      </div>
+      <div class="pcard">
+        <div class="pcard-n">02</div>
+        <div class="pcard-label">Versão — Reconhecimento</div>
+        <p class="pcard-text">"Para quem é boa no que faz e ainda não está sendo paga pelo que vale. O evento que começa de onde você realmente está."</p>
+      </div>
+      <div class="pcard">
+        <div class="pcard-n">03</div>
+        <div class="pcard-label">Versão — Manifesto</div>
+        <p class="pcard-text">"Chega de crescer sem estrutura. O High Level Summit é o evento para profissionais com lastro que querem vender com método, com consistência e sem depender do humor do dia."</p>
+      </div>
+      <div class="pcard">
+        <div class="pcard-n">04</div>
+        <div class="pcard-label">Versão — Curta e Direta</div>
+        <p class="pcard-text">"Produto que vende. Conteúdo que vende. Posicionamento que gera venda. Dois dias. Aplicação real."</p>
+      </div>
+    </div>
+
+    <div class="headline-hero r">
+      <div class="pcard-label" style="margin-bottom:1rem">Headline Principal Recomendada</div>
+      <p class="hl-main">"Dois dias para<br><em>vender o que você sabe.</em>"</p>
+      <p class="hl-sub" style="margin-top:1.2rem">Para profissionais com lastro que são excelentes no que fazem — e agora querem método, posicionamento e consistência nas vendas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DORES -->
+<section class="dores-section">
+  <div class="wrap">
+    <div class="tag r">05 — Dores Profundas</div>
+    <h2 class="stitle r">O que esse evento<br><em>realmente</em> resolve</h2>
+    <p class="intro r">As dores que ela sente mas não consegue nomear. Nenhuma delas é sobre faturamento — todas são sobre estrutura, método e consistência.</p>
+
+    <div class="dores-list">
+      <div class="dor-row r"><span class="dor-n">01</span><p class="dor-q">"Sou boa no que faço, mas não sei como me vender no digital sem parecer que estou forçando."</p></div>
+      <div class="dor-row r"><span class="dor-n">02</span><p class="dor-q">"Meu produto existe, mas não está organizado de um jeito que facilite a venda."</p></div>
+      <div class="dor-row r"><span class="dor-n">03</span><p class="dor-q">"Produzo conteúdo, mas ele não está gerando cliente — só curtida."</p></div>
+      <div class="dor-row r"><span class="dor-n">04</span><p class="dor-q">"Estou presa no modelo de horas por dinheiro e não sei como sair sem perder receita."</p></div>
+      <div class="dor-row r"><span class="dor-n">05</span><p class="dor-q">"Não sei como usar IA sem parecer que estou abrindo mão da minha essência e do meu diferencial humano."</p></div>
+      <div class="dor-row r"><span class="dor-n">06</span><p class="dor-q">"Tudo parece complexo demais — quando começo a implementar, trava."</p></div>
+      <div class="dor-row r"><span class="dor-n">07</span><p class="dor-q">"Quero criar uma mentoria, mas não sei se tenho autoridade suficiente para cobrar o que quero."</p></div>
+      <div class="dor-row r"><span class="dor-n">08</span><p class="dor-q">"Preciso de conexões que me movam — não de mais seguidores."</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMA -->
+<section class="programa-section" id="programa">
+  <div class="wrap">
+    <div class="tag r">06 — Programa dos 2 Dias</div>
+    <h2 class="stitle r">Arquitetura<br>&amp; <em>Estrutura</em></h2>
+    <p class="intro r">Dia 1 constrói a base: produto, posicionamento e IA aplicada. Dia 2 equipa para crescer: aquisição, vendas e operação.</p>
+
+    <div class="dias-grid r">
+      <!-- DIA 1 -->
+      <div class="dia">
+        <div class="dia-head">
+          <div class="dia-eyebrow">Dia 01</div>
+          <div class="dia-title">Arquitetura<br>do Negócio</div>
+          <div class="dia-subtitle">Produto, posicionamento e IA como suporte</div>
+        </div>
+        <div class="sched-item"><span class="sched-time">08:00</span><div class="sched-body"><strong>Credenciamento Premium</strong>Welcome coffee curado — primeiro momento de networking</div></div>
+        <div class="sched-item"><span class="sched-time">09:00</span><div class="sched-body"><strong>Abertura — Renata Madeu</strong>"Do serviço ao produto que vende: a virada que muda tudo"<span class="sched-chip">Palestra-Manifesto</span><span class="sched-chip pitch-chip">PRÉ-PITCH</span></div></div>
+        <div class="sched-item"><span class="sched-time">09:45</span><div class="sched-body"><strong>Posicionamento Premium</strong>Como ser reconhecida pelo que você vale — sem forçar<span class="sched-chip">Palestra</span></div></div>
+        <div class="sched-item"><span class="sched-time">10:45</span><div class="sched-body"><strong>Coffee Break</strong>Networking por modelo de negócio</div></div>
+        <div class="sched-item"><span class="sched-time">11:15</span><div class="sched-body"><strong>IA como Suporte Operacional</strong>Luís Ferreira — O que automatizar sem perder sua essência<span class="sched-chip">Palestra + Demo</span></div></div>
+        <div class="sched-item"><span class="sched-time">12:15</span><div class="sched-body"><strong>Workshop ao Vivo: Monte seu Assistente de IA</strong>Aplicação prática — cada participante sai com 1 sistema rodando<span class="sched-chip">Experiência Prática</span></div></div>
+        <div class="sched-item"><span class="sched-time">13:15</span><div class="sched-body"><strong>Almoço Estratégico</strong>Mesas separadas por modelo de negócio — curadoria intencional</div></div>
+        <div class="sched-item"><span class="sched-time">14:30</span><div class="sched-body"><strong>Precificação como Decisão Estratégica</strong>Portfólio, oferta única e mentoria de sessão única<span class="sched-chip">Palestra</span></div></div>
+        <div class="sched-item"><span class="sched-time">15:30</span><div class="sched-body"><strong>Da Marca Pessoal para o Produto Vendável</strong>Como criar método a partir do que você já sabe<span class="sched-chip">Palestra</span></div></div>
+        <div class="sched-item"><span class="sched-time">16:20</span><div class="sched-body"><strong>Mesas de Estratégia</strong>Networking guiado — segmentado por perfil e momento<span class="sched-chip">Networking Guiado</span></div></div>
+        <div class="sched-item"><span class="sched-time">17:30</span><div class="sched-body"><strong>Encerramento Dia 1 — Renata</strong>Intenção para o dia seguinte + Cocktail opcional<span class="sched-chip pitch-chip">PRÉ-PITCH 2</span></div></div>
+      </div>
+
+      <!-- DIA 2 -->
+      <div class="dia">
+        <div class="dia-head">
+          <div class="dia-eyebrow">Dia 02</div>
+          <div class="dia-title">Estrutura<br>e Crescimento</div>
+          <div class="dia-subtitle">Aquisição, vendas, conteúdo e operação</div>
+        </div>
+        <div class="sched-item"><span class="sched-time">08:30</span><div class="sched-body"><strong>Welcome Coffee</strong>Conexão livre + revisão dos insights do dia anterior</div></div>
+        <div class="sched-item"><span class="sched-time">09:00</span><div class="sched-body"><strong>Palestra de Visão — Convidada de Alto Nível</strong>Poliana Félix — Referência de mercado em alta<span class="sched-chip">Palestra Premium</span></div></div>
+        <div class="sched-item"><span class="sched-time">09:45</span><div class="sched-body"><strong>Conteúdo QGV: Qualifica, Gera Autoridade e Vende</strong>O sistema de conteúdo que atrai o cliente certo<span class="sched-chip">Palestra</span></div></div>
+        <div class="sched-item"><span class="sched-time">10:45</span><div class="sched-body"><strong>Coffee Break</strong></div></div>
+        <div class="sched-item"><span class="sched-time">11:00</span><div class="sched-body"><strong>Vendas High Level: Conversão com Elegância</strong>O processo de venda consultivo para ticket alto<span class="sched-chip">Palestra</span></div></div>
+        <div class="sched-item"><span class="sched-time">12:00</span><div class="sched-body"><strong>Aquisição Inteligente</strong>Funis que funcionam sem depender de posts diários<span class="sched-chip">Palestra</span></div></div>
+        <div class="sched-item"><span class="sched-time">13:00</span><div class="sched-body"><strong>Almoço</strong></div></div>
+        <div class="sched-item"><span class="sched-time">14:15</span><div class="sched-body"><strong>Workshop: Calendário Editorial de 90 Dias com IA</strong>Conteúdo estratégico montado ao vivo<span class="sched-chip">Experiência Prática</span></div></div>
+        <div class="sched-item"><span class="sched-time">15:15</span><div class="sched-body"><strong>Rotina High Level: Processos e Delegação</strong>A operação que suporta tudo sem te destruir<span class="sched-chip">Palestra</span></div></div>
+        <div class="sched-item"><span class="sched-time">16:00</span><div class="sched-body"><strong>A Sala de Negócios</strong>Speed networking estruturado — 3 conexões estratégicas<span class="sched-chip">Networking Premium</span></div></div>
+        <div class="sched-item"><span class="sched-time">17:00</span><div class="sched-body"><strong>Painel ao Vivo: Profissionais em Campo</strong>Casos reais, erros reais, vendas reais<span class="sched-chip">Painel</span><span class="sched-chip pitch-chip">PITCH PRINCIPAL</span></div></div>
+        <div class="sched-item"><span class="sched-time">17:45</span><div class="sched-body"><strong>Cerimônia de Encerramento — Renata Madeu</strong>"O próximo ciclo começa aqui" + Foto coletiva<span class="sched-chip">Ritual Final</span><span class="sched-chip pitch-chip">REPITCH</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PALESTRANTES SUGERIDOS -->
+<section class="speakers-section" id="palestrantes">
+  <div class="wrap">
+    <div class="tag r">07 — Títulos das Palestras</div>
+    <h2 class="stitle r">Nomes das aulas<br>prontos para <em>usar</em></h2>
+
+    <div class="speaker-grid r">
+      <div class="speaker-card"><span class="sp-num">01</span><p class="sp-title">"Do serviço ao produto que vende: a virada que muda tudo"</p></div>
+      <div class="speaker-card"><span class="sp-num">02</span><p class="sp-title">"Posicionamento Premium: como ser reconhecida pelo que você vale"</p></div>
+      <div class="speaker-card"><span class="sp-num">03</span><p class="sp-title">"IA como Suporte: o que automatizar sem perder sua essência"</p></div>
+      <div class="speaker-card"><span class="sp-num">04</span><p class="sp-title">"Da Marca Pessoal para o Produto Vendável"</p></div>
+      <div class="speaker-card"><span class="sp-num">05</span><p class="sp-title">"Precificação como Decisão Estratégica: do serviço à mentoria"</p></div>
+      <div class="speaker-card"><span class="sp-num">06</span><p class="sp-title">"Conteúdo QGV: para de produzir, começa a qualificar"</p></div>
+      <div class="speaker-card"><span class="sp-num">07</span><p class="sp-title">"Vendas High Level: conversão consultiva sem pressão"</p></div>
+      <div class="speaker-card"><span class="sp-num">08</span><p class="sp-title">"Aquisição Inteligente: o sistema que funciona enquanto você vive"</p></div>
+      <div class="speaker-card"><span class="sp-num">09</span><p class="sp-title">"Rotina High Level: processos, delegação e o que só você pode fazer"</p></div>
+      <div class="speaker-card"><span class="sp-num">10</span><p class="sp-title">"O método que você já tem e ainda não transformou em produto"</p></div>
+      <div class="speaker-card"><span class="sp-num">11</span><p class="sp-title">"Mentoria de sessão única: o modelo mais simples para começar a vender conhecimento"</p></div>
+      <div class="speaker-card"><span class="sp-num">12</span><p class="sp-title">"O próximo ciclo começa aqui" — Palestra de encerramento</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- IA -->
+<section class="ia-section" id="ia">
+  <div class="wrap">
+    <div class="tag r">08 — Abordagem da Inteligência Artificial</div>
+    <h2 class="stitle r">IA como <em>suporte</em> —<br>não como substituto</h2>
+    <p class="intro r">Ponto levantado pela Renata na reunião: o mercado vende IA de forma irreal. O HLS vai contra essa narrativa com posicionamento honesto e aplicação prática.</p>
+
+    <div class="ia-grid r">
+      <div>
+        <div class="ia-col-title">O que a IA FAZ no evento</div>
+        <div class="ia-item">Assistente de criação de conteúdo (não substitui a voz — acelera)</div>
+        <div class="ia-item">Automação de processos repetitivos (atendimento, organização)</div>
+        <div class="ia-item">Suporte à produção do calendário editorial de 90 dias</div>
+        <div class="ia-item">Ferramenta prática montada ao vivo no workshop com Luís Ferreira</div>
+        <div class="ia-item">Criação de assistentes dentro do Cowork / plataformas práticas</div>
+        <div class="ia-item">Pesquisa de mercado e análise de posicionamento da concorrência</div>
+      </div>
+      <div>
+        <div class="ia-col-title">O que a IA NÃO promete</div>
+        <div class="ia-item strike">Substituir sua equipe por completo</div>
+        <div class="ia-item strike">Reduzir custo operacional de forma irreal</div>
+        <div class="ia-item strike">Gerar conteúdo autêntico sem sua curadoria e voz</div>
+        <div class="ia-item strike">Vender por você sem processo estruturado</div>
+        <div class="ia-item strike">Resolver problemas de posicionamento por conta própria</div>
+        <div class="ia-item" style="margin-top:1rem; font-style:italic; color:var(--wine-pale); text-decoration:none;">
+          <span style="color:var(--wine-pale)">→</span> O diferencial no mercado atual é a <strong style="color:var(--cream)">compreensão humana</strong>. A IA é o suporte — não o protagonista.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIÊNCIA -->
+<section class="exp-section" id="experiencia">
+  <div class="wrap">
+    <div class="tag r">09 — Tom e Experiência</div>
+    <h2 class="stitle r">Como ela deve<br><em>se sentir</em></h2>
+    <p class="intro r">A experiência começa no primeiro post e termina na cerimônia de encerramento. Cada detalhe comunica o mesmo nível.</p>
+
+    <div class="feel-grid r">
+      <div class="feel-card">
+        <div class="feel-moment">Ao Chegar</div>
+        <p class="feel-quote">"Esse é o meu lugar. As pessoas aqui entendem o que eu construí."</p>
+      </div>
+      <div class="feel-card">
+        <div class="feel-moment">Durante</div>
+        <p class="feel-quote">"Isso faz sentido para onde eu estou. Finalmente algo que não começa do zero."</p>
+      </div>
+      <div class="feel-card">
+        <div class="feel-moment">Ao Sair</div>
+        <p class="feel-quote">"Sei exatamente o que fazer agora. E tenho com quem fazer."</p>
+      </div>
+    </div>
+
+    <div class="identity-grid r">
+      <div>
+        <div class="id-group-h">Identidade Visual — Continuidade da Marca Renata</div>
+        <div class="id-i">Paleta mantém o <strong>vinho/wine</strong> já existente na marca</div>
+        <div class="id-i">Reutilização dos materiais: cordões, sacolas, molesquines do evento anterior</div>
+        <div class="id-i">Off-white / champagne como contraste — sem rebranding radical</div>
+        <div class="id-i">Gold em detalhes intencionais — não excessivo</div>
+        <div class="id-i">Tipografia editorial + identidade da Renata preservada</div>
+        <div class="id-i">Brandbook da Renata como base — Eduarda formata para o evento</div>
+      </div>
+      <div>
+        <div class="id-group-h">Ambiente e Produção</div>
+        <div class="id-i">Convites físicos enviados às participantes High Level (estratégia FOMO)</div>
+        <div class="id-i">Palco clean, iluminação quente e cênica — sem banner sobrecarregado</div>
+        <div class="id-i">Gastronomia com curadoria — coffee break como experiência</div>
+        <div class="id-i">Almoços segmentados por modelo de negócio — conexão intencional</div>
+        <div class="id-i">Cobertura de foto e filmagem com padrão elevado (ponto de melhoria vs. edição anterior)</div>
+        <div class="id-i">Kit físico: caderno, caneta e carta de Renata para cada participante</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PITCH STRATEGY -->
+<section class="pitch-section" id="pitch">
+  <div class="wrap">
+    <div class="tag r">10 — Estratégia de Pitch</div>
+    <h2 class="stitle r">Onde inserir<br><em>Pré-Pitch, Pitch</em> e Repitch</h2>
+    <p class="intro r">O evento cria uma curva de desejo crescente ao longo dos dois dias. O pitch acontece no pico emocional — nunca antes de a participante ter vivido valor real.</p>
+
+    <div class="pitch-timeline r">
+      <div class="pitch-card">
+        <span class="pitch-number">1</span>
+        <div class="pitch-type pre">Pré-Pitch</div>
+        <div class="pitch-label">Plante o desejo.<br>Não ofereça ainda.</div>
+        <div class="pitch-when">Dia 1 — Abertura + Encerramento</div>
+        <p class="pitch-desc">O objetivo do pré-pitch não é vender. É criar identificação tão forte que, quando a oferta aparecer, a participante já saiba que é para ela.</p>
+        <div class="pitch-items">
+          <div class="pitch-item">
+            <strong>Abertura — 09h00 · Dia 1</strong>
+            Renata abre com a narrativa de transformação. Mostra o antes e depois de clientes reais. Planta a pergunta: "E se o próximo resultado fosse o seu?" Sem mencionar qualquer produto ou preço.
+          </div>
+          <div class="pitch-item">
+            <strong>Encerramento Dia 1 — 17h30</strong>
+            Ao fechar o primeiro dia, Renata faz uma ponte: "Amanhã vamos aprofundar o que você precisa para implementar tudo isso." Cria antecipação. Menciona brevemente que haverá uma oportunidade única — sem revelar o quê.
+          </div>
+        </div>
+      </div>
+
+      <div class="pitch-card highlight">
+        <span class="pitch-number">2</span>
+        <div class="pitch-type main">Pitch Principal</div>
+        <div class="pitch-label">No pico.<br>Após a maior prova.</div>
+        <div class="pitch-when">Dia 2 — Após Painel ao Vivo · 17h00</div>
+        <p class="pitch-desc">O pitch acontece quando a participante está no estado de maior crença: acabou de ouvir casos reais, erros reais, resultados reais. A prova social está no topo. É o momento da oferta.</p>
+        <div class="pitch-items">
+          <div class="pitch-item">
+            <strong>Após o Painel ao Vivo — 17h00 · Dia 2</strong>
+            Renata retoma o palco: "Tudo que você viu é o que acontece quando a estrutura está certa. Agora deixa eu te mostrar como continuar com o suporte que faz a diferença." Apresenta a oferta com clareza, urgência real e bônus exclusivos para quem decide no evento.
+          </div>
+          <div class="pitch-item">
+            <strong>Estrutura do Pitch</strong>
+            Problema recapitulado → Metodologia vivida nos 2 dias → Prova social do painel → Oferta com condições do evento → Bônus por decisão imediata → Escassez real
+          </div>
+        </div>
+      </div>
+
+      <div class="pitch-card">
+        <span class="pitch-number">3</span>
+        <div class="pitch-type re">Repitch</div>
+        <div class="pitch-label">Última chance.<br>Tom de pertencimento.</div>
+        <div class="pitch-when">Dia 2 — Cerimônia Final · 17h45</div>
+        <p class="pitch-desc">O repitch não é agressivo. É um convite de fechamento com tom de comunidade — quem ainda não decidiu recebe um último argumento emocional, não racional.</p>
+        <div class="pitch-items">
+          <div class="pitch-item">
+            <strong>Cerimônia de Encerramento — 17h45 · Dia 2</strong>
+            Renata finaliza: "Algumas de vocês já garantiram o próximo passo. Para as que ainda estão avaliando — essa é a última oportunidade com as condições de hoje. Amanhã o preço muda." Tom caloroso, nunca pressão.
+          </div>
+          <div class="pitch-item">
+            <strong>Pós-Encerramento — Sala de Vendas</strong>
+            Equipe disponível para fechar individualmente enquanto a foto coletiva acontece. Espaço físico marcado sem interromper o clima emocional do encerramento.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pitch-flow r">
+      <div class="pitch-flow-title">Linha do Tempo — Curva de Desejo</div>
+      <div class="pitch-flow-steps">
+        <div class="pf-step">
+          <div class="pf-dot pre-c">P1</div>
+          <div class="pf-event">Dia 1 · 09h</div>
+          <div class="pf-action">Abertura<br>Planta o desejo</div>
+        </div>
+        <div class="pf-step">
+          <div class="pf-dot pre-c">P1</div>
+          <div class="pf-event">Dia 1 · 17h30</div>
+          <div class="pf-action">Fim do dia<br>Cria antecipação</div>
+        </div>
+        <div class="pf-step">
+          <div class="pf-dot pre-c">P1</div>
+          <div class="pf-event">Dia 2 · 09h</div>
+          <div class="pf-action">Poliana Félix<br>Eleva a crença</div>
+        </div>
+        <div class="pf-step">
+          <div class="pf-dot pre-c">P1</div>
+          <div class="pf-event">Dia 2 · 15h15</div>
+          <div class="pf-action">Rotina HL<br>Visão de vida</div>
+        </div>
+        <div class="pf-step">
+          <div class="pf-dot main-c">P2</div>
+          <div class="pf-event">Dia 2 · 17h</div>
+          <div class="pf-action">Painel Vivo<br><strong style="color:var(--wine-pale)">PITCH</strong></div>
+        </div>
+        <div class="pf-step">
+          <div class="pf-dot re-c">R</div>
+          <div class="pf-event">Dia 2 · 17h45</div>
+          <div class="pf-action">Cerimônia<br><strong style="color:var(--gold)">REPITCH</strong></div>
+        </div>
+        <div class="pf-step">
+          <div class="pf-dot re-c">R</div>
+          <div class="pf-event">Pós-evento</div>
+          <div class="pf-action">Sala de vendas<br>Fechamento</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem; display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.5rem;" class="r">
+      <div style="padding:2rem; background:var(--card); border:1px solid var(--border);">
+        <div class="pitch-flow-title">O que fazer no Pitch</div>
+        <div class="pitch-desc" style="margin:0">Recapitular a transformação vivida nos 2 dias. Usar as próprias palavras das participantes capturadas ao vivo. Mostrar o próximo passo concreto. Criar escassez real — nunca falsa.</div>
+      </div>
+      <div style="padding:2rem; background:var(--card); border:1px solid var(--border);">
+        <div class="pitch-flow-title">O que evitar</div>
+        <div class="pitch-desc" style="margin:0">Pitch longo e técnico demais — o momento é emocional. Promessas que contradizem o que o evento acabou de ensinar. Pressão explícita que quebra o clima de sofisticação construído.</div>
+      </div>
+      <div style="padding:2rem; background:linear-gradient(135deg,rgba(107,26,42,0.15),rgba(107,26,42,0.04)); border:1px solid rgba(107,26,42,0.2);">
+        <div class="pitch-flow-title" style="color:var(--wine-pale)">Oferta Ideal para o Evento</div>
+        <div class="pitch-desc" style="margin:0; color:rgba(244,237,224,0.65)">Continuidade natural do conteúdo do HLE. Mentoria, programa ou imersão que aprofunda o que foi iniciado. Condição exclusiva válida apenas durante o evento — sem desconto, com bônus de implementação.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section class="dif-section" id="diferenciais">
+  <div class="wrap">
+    <div class="tag r">11 — Diferenciais</div>
+    <h2 class="stitle r">Como não parecer<br><em>"mais do mesmo"</em></h2>
+
+    <div class="dif-grid r">
+      <div class="dif-card">
+        <div class="dif-accent"></div>
+        <div class="dif-title">Evolução de Tema, Não de Fórmula</div>
+        <p class="dif-text">A edição anterior tinha promessa diferente. Esta evolui sobre o que foi plantado. Para mentoradas e participantes recorrentes: nova roupagem, nova profundidade, nova tese — mesma marca em que confiam.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-accent"></div>
+        <div class="dif-title">Palestrantes que São Pares — Não Gurus</div>
+        <p class="dif-text">Nomes novos em relação ao evento anterior (Kellen e Yuri não se repetem). Poliana Félix como nome de alto valor no Dia 2. Luís Ferreira para IA com aplicação real. Palestrantes que vivem o que ensinam.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-accent"></div>
+        <div class="dif-title">Conteúdo que Só Existe ao Vivo</div>
+        <p class="dif-text">Workshop de IA ao vivo (montar assistente em tempo real). Mesas de almoço por modelo de negócio. Painel com casos reais e franqueza. Conteúdo que não existe no reel nem no stories.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-accent"></div>
+        <div class="dif-title">Simplicidade de Execução Como Diferencial</div>
+        <p class="dif-text">A reunião sinalizou um ponto crítico: o público trava na complexidade. O evento entrega estratégias simples o suficiente para implementar — com IA reduzindo a fricção de execução, não aumentando.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JORNADA -->
+<section class="jornada-section" id="jornada">
+  <div class="wrap">
+    <div class="tag r">12 — Jornada da Participante</div>
+    <h2 class="stitle r">Do primeiro contato<br>ao <em>próximo ciclo</em></h2>
+
+    <div class="jornada-flow">
+      <div class="j-step r">
+        <div class="j-dot"><div class="j-dot-inner"></div></div>
+        <div class="j-content">
+          <div class="j-phase">Fase 01 — Pré-Evento</div>
+          <div class="j-title">A Antecipação</div>
+          <div class="j-tags">
+            <span class="j-tag">Narrativa de antecipação (prioridade da Renata)</span>
+            <span class="j-tag">Convite físico enviado para casa</span>
+            <span class="j-tag">Grupo privado de participantes</span>
+            <span class="j-tag">Workbook de preparação digital</span>
+          </div>
+        </div>
+      </div>
+      <div class="j-step r">
+        <div class="j-dot"><div class="j-dot-inner"></div></div>
+        <div class="j-content">
+          <div class="j-phase">Fase 02 — Chegada</div>
+          <div class="j-title">A Primeira Impressão</div>
+          <div class="j-tags">
+            <span class="j-tag">Check-in premium sem fila</span>
+            <span class="j-tag">Kit físico com identidade Renata</span>
+            <span class="j-tag">Welcome coffee com curadoria</span>
+          </div>
+        </div>
+      </div>
+      <div class="j-step r">
+        <div class="j-dot"><div class="j-dot-inner"></div></div>
+        <div class="j-content">
+          <div class="j-phase">Fase 03 — Dia 1</div>
+          <div class="j-title">Arquitetura do Negócio</div>
+          <div class="j-tags">
+            <span class="j-tag">Produto, posicionamento e IA</span>
+            <span class="j-tag">Workshop prático ao vivo</span>
+            <span class="j-tag">Almoço por modelo de negócio</span>
+            <span class="j-tag">Mesas de estratégia guiadas</span>
+          </div>
+        </div>
+      </div>
+      <div class="j-step r">
+        <div class="j-dot"><div class="j-dot-inner"></div></div>
+        <div class="j-content">
+          <div class="j-phase">Fase 04 — Dia 2</div>
+          <div class="j-title">Estrutura e Crescimento</div>
+          <div class="j-tags">
+            <span class="j-tag">Poliana Félix — nome de alto nível</span>
+            <span class="j-tag">Conteúdo QGV e Vendas HL</span>
+            <span class="j-tag">Calendário editorial 90 dias</span>
+            <span class="j-tag">A Sala de Negócios</span>
+            <span class="j-tag">Cerimônia de encerramento</span>
+          </div>
+        </div>
+      </div>
+      <div class="j-step r">
+        <div class="j-dot"><div class="j-dot-inner"></div></div>
+        <div class="j-content">
+          <div class="j-phase">Fase 05 — Pós-Evento</div>
+          <div class="j-title">O Próximo Ciclo</div>
+          <div class="j-tags">
+            <span class="j-tag">Material "Seus próximos 30 dias"</span>
+            <span class="j-tag">Gravações selecionadas (curadas)</span>
+            <span class="j-tag">Comunidade pós-evento</span>
+            <span class="j-tag">Primeira menção da próxima edição</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGÍSTICA E PATROCÍNIOS -->
+<section class="log-section" id="logistica">
+  <div class="wrap">
+    <div class="tag r">13 — Logística & Patrocínios</div>
+    <h2 class="stitle r">Mapa de <em>custos</em><br>e oportunidades</h2>
+    <p class="intro r">Pontos levantados na reunião para otimizar a produção sem comprometer a experiência premium.</p>
+
+    <div class="log-grid r">
+      <div class="log-card">
+        <div class="log-title">Principais Custos</div>
+        <div class="log-item">Espaço em SP — ~R$ 28.000 (parcela no mês)</div>
+        <div class="log-item">Foto e filmagem — ponto de melhoria vs. edição anterior</div>
+        <div class="log-item">Gastronomia — custo relevante a mapear</div>
+        <div class="log-item">Produção gráfica / impressos</div>
+      </div>
+      <div class="log-card">
+        <div class="log-title">Patrocinadores-Alvo</div>
+        <div class="log-item">CursEduca — a verificar</div>
+        <div class="log-item">Don Pagamentos — parceiro de serviço</div>
+        <div class="log-item">Kifi — parceiro atual</div>
+        <div class="log-item">Eduz — a avaliar</div>
+        <div class="log-item">Rede de contatos pessoal (networking como no ano anterior)</div>
+      </div>
+      <div class="log-card">
+        <div class="log-title">Economia de Produção</div>
+        <div class="log-item">Reutilização de cordões, sacolas e molesquines do evento anterior</div>
+        <div class="log-item">Mesmo fornecedor — facilita replicação com desconto</div>
+        <div class="log-item">Brandbook Renata como base — adaptação, não criação do zero</div>
+        <div class="log-item">Patrocínio via rede pessoal (modelo que funcionou: cabelo da produção, impressos)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SÍNTESE -->
+<section class="sintese-section">
+  <div class="wrap" style="text-align:center">
+    <div class="sint-line"></div>
+    <p class="sint-quote r">"O High Level Experience não começa do zero. Começa de onde a participante realmente está — e entrega o método para que ela venda o que já sabe."</p>
+    <div class="sint-author r">Renata Madeu — Idealizadora do High Level Experience SP</div>
+
+    <div class="final-row r">
+      <div>
+        <div class="fr-label">Nome Confirmado</div>
+        <p class="fr-val">High Level Experience SP</p>
+      </div>
+      <div>
+        <div class="fr-label">Tema Central</div>
+        <p class="fr-val">Vendas: produto, conteúdo e posicionamento que vendem</p>
+      </div>
+      <div>
+        <div class="fr-label">Perfil Principal (ICP)</div>
+        <p class="fr-val">Profissional com lastro — Prestadora de Serviços Premium em transição</p>
+      </div>
+    </div>
+
+    <!-- PRÓXIMAS ETAPAS -->
+    <div style="margin-top:4rem; padding-top:3rem; border-top:1px solid var(--border); text-align:left;" class="r">
+      <div class="tag" style="margin-bottom:1.5rem">Próximas Etapas — Alinhadas com a Reunião</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border);">
+        <div style="background:var(--card); padding:1.5rem 2rem;">
+          <div style="font-size:0.58rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--wine-pale);margin-bottom:0.6rem">Eduarda Vasconcelos</div>
+          <div class="ia-item">Reestruturar proposta com novos pilares e tema-vendas</div>
+          <div class="ia-item">Usar esta transcrição + reunião para refinar a promessa</div>
+          <div class="ia-item">Ajustar identidade visual ao brandbook da Renata</div>
+          <div class="ia-item">Desenvolver precificação e narrativa de antecipação</div>
+          <div class="ia-item">Trabalhar rede de contatos para patrocinadores</div>
+        </div>
+        <div style="background:var(--card); padding:1.5rem 2rem;">
+          <div style="font-size:0.58rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--wine-pale);margin-bottom:0.6rem">Renata Madeu</div>
+          <div class="ia-item">Enviar brandbook para formatação do evento</div>
+          <div class="ia-item">Enviar minuto a minuto e temas do evento anterior</div>
+          <div class="ia-item">Contatar Inaiá (Nanada) para reunião</div>
+          <div class="ia-item">Verificar patrocínio CursEduca</div>
+          <div class="ia-item">Alinhar participação de Luís Ferreira (IA) e Poliana Félix</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">High Level Experience SP · 2026</div>
+  <div class="f-credit">Renata Madeu · Estratégia atualizada pós-reunião · Mai 2026</div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold: 0.07 });
+
+document.querySelectorAll('.r').forEach((el, i) => {
+  // Stagger siblings in grid containers
+  const parent = el.parentElement;
+  if (parent && (parent.classList.contains('icp-grid') ||
+      parent.classList.contains('conceito-grid') ||
+      parent.classList.contains('promessa-cards') ||
+      parent.classList.contains('feel-grid') ||
+      parent.classList.contains('speaker-grid') ||
+      parent.classList.contains('dif-grid') ||
+      parent.classList.contains('log-grid'))) {
+    const siblings = [...parent.querySelectorAll(':scope > .r')];
+    const idx = siblings.indexOf(el);
+    el.style.transitionDelay = `${idx * 0.07}s`;
+  }
+  obs.observe(el);
+});
+</script>
+</body>
+</html>
